@@ -1,22 +1,26 @@
 <template>
   <div id="app">
-    <Header
-      :numCorrect="numCorrect"
-      :numTotal="numTotal"
-    />
+    <a-row type="flex" justify="space-around" align="middle">
+      <a-col :span="20" >
+        <Header
+          :numCorrect="numCorrect"
+          :numTotal="numTotal"
+        />
 
-    <b-container class="bv-example-row">
-      <b-row>
-        <b-col sm="6" offset="3">
-          <QuestionBox
-            v-if="questions.length"
-            :currentQuestion="questions[index]"
-            :next="next"
-            :increment="increment"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+        <b-container class="bv-example-row">
+          <b-row>
+            <b-col sm="6" offset="3">
+              <QuestionBox
+                v-if="questions.length"
+                :currentQuestion="questions[index]"
+                :next="next"
+                :increment="increment"
+              />
+            </b-col>
+          </b-row>
+        </b-container>       
+      </a-col>
+    </a-row>    
   </div>
 </template>
 
@@ -64,12 +68,13 @@ export default {
 </script>
 
 <style>
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top:50px;
 }
 </style>

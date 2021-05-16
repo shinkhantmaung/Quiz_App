@@ -1,36 +1,30 @@
 <template>
-  <div class="question-box-container">
-    <b-jumbotron>
-      <template slot="lead">
-        {{ currentQuestion.question }}
-      </template>
-
-      <hr class="my-4" />
-
-      <b-list-group>
-        <b-list-group-item
-          v-for="(answer, index) in shuffledAnswers"
-          :key="index"
-          @click.prevent="selectAnswer(index)"
-          :class="answerClass(index)"
-        >
-          {{ answer }}
-        </b-list-group-item>
-      </b-list-group>
-
-      <b-button
-        variant="primary"
+  <a-card>
+    <h1 style="fontSize: 20px;color: rgba(0, 0, 0, 0.85); marginBottom: 16px;fontWeight: 500">
+      {{ currentQuestion.question }}
+    </h1>
+    <a-list bordered :data-source="data">
+      <a-list-item  
+        v-for="(answer, index) in shuffledAnswers"
+        :key="index"
+        @click.prevent="selectAnswer(index)"
+        :class="answerClass(index)">
+        {{index+1}}. {{ answer }}
+      </a-list-item>
+    </a-list><br>
+    <a-button type="primary" :size="size" style="margin:10px;" 
         @click="submitAnswer"
         :disabled="selectedIndex === null || answered"
-      >
-        Submit
-      </b-button>
-      <b-button @click="next" variant="success">
-        Next
-      </b-button>
-    </b-jumbotron>
-  </div>
+    >
+      Submit
+    </a-button>
+    <a-button :size="size" style="margin:10px;" @click="next" variant="success">
+        Next <a-icon type="right" />
+    </a-button> 
+  </a-card>
 </template>
+
+
 
 <script>
 import _ from 'lodash'
@@ -46,11 +40,15 @@ export default {
       selectedIndex: null,
       correctIndex: null,
       shuffledAnswers: [],
-      answered: false
+      answered: false,
+      size: 'large'
     }
   },
   computed: {
     answers() {
+      // this function is no longer used in finished code
+      // it is replaced by the watch function below and the
+      // shuffleAnswers method
       let answers = [...this.currentQuestion.incorrect_answers]
       answers.push(this.currentQuestion.correct_answer)
       return answers
@@ -67,6 +65,9 @@ export default {
     }
   },
   methods: {
+    handleSizeChange(e) {
+      this.size = e.target.value;
+      },
     selectAnswer(index) {
       this.selectedIndex = index
     },
@@ -106,16 +107,16 @@ export default {
 </script>
 
 <style scoped>
-.list-group {
+.a-list {
   margin-bottom: 15px;
 }
 
-.list-group-item:hover {
-  background: #EEE;
+.a-list-item:hover {
+  background: #333;
   cursor: pointer;
 }
 
-.btn {
+.a-button {
   margin: 0 5px;
 }
 
